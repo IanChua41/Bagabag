@@ -15,6 +15,11 @@ public class ThirdPersonCam : MonoBehaviour
         Cursor.visible = false;
     }
 
+    private void OnEnable()
+    {
+        Debug.Log("Switched to Third Person POV.");
+    }
+
     private void Update()
     {
         // rotate orientation

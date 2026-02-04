@@ -10,17 +10,24 @@ public class SwitchPOV : MonoBehaviour
 
     private void Start()
     {
+        // third person by default on start
         firstPersonCam.SetActive(false);
+        thirdPersonCam.SetActive(true);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T) && !firstPerson) // toggle first person perspective
         {
-            firstPerson = !firstPerson;
-
-            firstPersonCam.SetActive(firstPerson);
+            firstPerson = true;
+            firstPersonCam.SetActive(true);
+            thirdPersonCam.SetActive(false);
+        }
+        else if (Input.GetKeyDown(KeyCode.T) && firstPerson) // toggle third person perspective
+        {
+            firstPerson = false;
+            thirdPersonCam.SetActive(true);
+            firstPersonCam.SetActive(false);
         }
     }
 }
