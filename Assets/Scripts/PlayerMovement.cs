@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
@@ -15,6 +16,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 inputDirection;
     private bool isSprinting;
     private bool jumpInput;
+
+    [Header("Character Rotation")]
+    public Transform orientation;
 
     void Start()
     {
@@ -47,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
 
     void MovePlayer()
     {
-        Vector3 move = transform.right * inputDirection.x + transform.forward * inputDirection.y;
+        Vector3 move = orientation.right * inputDirection.x + orientation.forward * inputDirection.y;
 
         float speed = isSprinting ? sprintSpeed : walkSpeed;
         controller.Move(move * speed * Time.deltaTime);
