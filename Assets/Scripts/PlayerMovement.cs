@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         MovePlayer();
-        HandleJumpAndGravity();
+        HandleJump();
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -55,22 +55,21 @@ public class PlayerMovement : MonoBehaviour
 
         float speed = isSprinting ? sprintSpeed : walkSpeed;
         controller.Move(move * speed * Time.deltaTime);
-    }
-
-    void HandleJumpAndGravity()
-    {
-        if (controller.isGrounded && velocity.y < 0)
+        if (controller.isGrounded)
         {
             velocity.y = -2f; // Small downward force to keep grounded
         }
 
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+    }
+
+    void HandleJump()
+    {
         if (jumpInput && controller.isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             jumpInput = false;
         }
-
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
     }
 }
