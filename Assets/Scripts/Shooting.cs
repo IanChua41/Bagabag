@@ -6,7 +6,7 @@ public class Shooting : MonoBehaviour
     public Animator anim;
     bool isShooting;
     [SerializeField] private Transform bulletSpawnPoint;
-    [SerializeField] private float damage;
+    [SerializeField] private float range;
     public Camera fpsCamera;
 
 
@@ -21,7 +21,6 @@ public class Shooting : MonoBehaviour
             {
                 anim.SetBool("IsShooting", true);
                 Shoot();
-                Debug.Log("Shoot!");
             }
 
         }
@@ -40,7 +39,7 @@ public class Shooting : MonoBehaviour
     void Shoot()
     {
         RaycastHit hit;
-        if (Physics.Raycast(fpsCamera.transform.position, fpsCamera.transform.forward, out hit))
+        if (Physics.Raycast(fpsCamera.transform.position, fpsCamera.transform.forward, out hit, range))
         {
             Debug.Log(hit.transform.name);
         }
