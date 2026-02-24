@@ -4,11 +4,11 @@ using UnityEngine.UI;
 public class StaminaBar : MonoBehaviour
 {
     [Header("Stamina Bar Settings")]
-    public Image staminaBarImage; // Reference to the UI Image for the stamina bar
+    public Image staminaBarImage; 
 
     private float maxStamina;
 
-    // Sets the maximum stamina value and initializes the stamina bar
+
     public void SetMaxStamina(float maxStaminaValue)
     {
         maxStamina = maxStaminaValue;
@@ -24,13 +24,11 @@ public class StaminaBar : MonoBehaviour
         }
     }
 
-    // Called when stamina is depleting
     public void OnStaminaDepleting(float currentStamina)
     {
         UpdateStamina(currentStamina);
     }
 
-    // Called when stamina is recovering
     public void OnStaminaRecovering(float currentStamina)
     {
         UpdateStamina(currentStamina);
