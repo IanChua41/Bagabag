@@ -2,26 +2,53 @@ using UnityEngine;
 
 public class LightBehavior : MonoBehaviour
 {
-    [SerializeField] private GameObject lightObject;
-    [SerializeField] private GameObject SpotLight;
-    [SerializeField] private float lightWaitTime = 5f;
-    [SerializeField] private float lightInitialTime = 0f;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private GameObject spotLight;
+    [SerializeField] private float lightWaitTime = 5.0f;
+    private float lightBufferTimer = 5.0f;
+    private float lightInitialBufferTime = 0.0f;
+    private float lightInitialTime = 0.0f;
+    private bool inSpotlight = false;
+    private bool lightOff = false;
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider other)
     {
-        lightInitialTime += Time.deltaTime;
-
-        if (collision.gameObject.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
-
-            if(lightInitialTime >= lightWaitTime)
-            {
-                lightObject.SetActive(true);
-                lightInitialTime = 0f;
-            }
+            inSpotlight = true;
             Debug.Log("Player has entered the trigger");
         }
     }
 
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            lightOff = true;
+            lightInitialTime = 0.0f;
+            Debug.Log("Player has exited the trigger");
+        }
+    }
+
+    void Update()
+    {
+        if (inSpotlight)
+        {
+            lightInitialTime += Time.deltaTime;
+            if (lightInitialTime >= lightWaitTime)
+            {
+                spotLight.SetActive(false);
+                inSpotlight = false;
+            }
+        }
+
+        if (lightOff)
+        {
+            lightInitialBufferTime += Time.deltaTime;
+            if (lightInitialBufferTime >= lightBufferTimer)
+            {
+                spotLight.SetActive(true);
+                lightOff = false;
+            }
+        }
+    }
 }
