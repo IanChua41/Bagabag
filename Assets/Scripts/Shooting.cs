@@ -43,5 +43,6 @@ public class Shooting : MonoBehaviour
         {
             Debug.Log(hit.transform.name);
         }
+
     }
 }
