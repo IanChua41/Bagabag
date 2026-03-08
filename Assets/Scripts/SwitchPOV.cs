@@ -3,31 +3,63 @@ using UnityEngine;
 
 public class SwitchPOV : MonoBehaviour
 {
-    public bool firstPerson = false;
+    bool firstPerson = false;
+    bool thirdPerson = false;
 
     [SerializeField] GameObject firstPersonCam;
     [SerializeField] GameObject thirdPersonCam;
+    [SerializeField] GameObject cinematicCam;
 
     private void Start()
     {
         // third person by default on start
         firstPersonCam.SetActive(false);
         thirdPersonCam.SetActive(true);
+        cinematicCam.SetActive(false);
+
+        thirdPerson = true;
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T) && !firstPerson) // toggle first person perspective
         {
-            firstPerson = true;
-            firstPersonCam.SetActive(true);
-            thirdPersonCam.SetActive(false);
+            SwitchToFirstPerson();
         }
-        else if (Input.GetKeyDown(KeyCode.T) && firstPerson) // toggle third person perspective
+        else if (Input.GetKeyDown(KeyCode.T) && !thirdPerson) // toggle third person perspective
         {
-            firstPerson = false;
-            thirdPersonCam.SetActive(true);
-            firstPersonCam.SetActive(false);
+            SwitchToThirdPerson();
         }
+        else if (Input.GetKeyDown(KeyCode.V))
+        {
+            SwitchToCinematic();
+        }
+    }
+
+    public void SwitchToFirstPerson()
+    {
+        firstPerson = true;
+        thirdPerson = false;
+        firstPersonCam.SetActive(true);
+        thirdPersonCam.SetActive(false);
+        cinematicCam.SetActive(false);
+    }
+
+    public void SwitchToThirdPerson()
+    {
+        firstPerson = false;
+        thirdPerson = true;
+        thirdPersonCam.SetActive(true);
+        firstPersonCam.SetActive(false);
+        cinematicCam.SetActive(false);
+    }
+
+    public void SwitchToCinematic()
+    {
+        firstPerson = false;
+        thirdPerson = false;
+        cinematicCam.SetActive(true);
+        firstPersonCam.SetActive(false);
+        thirdPersonCam.SetActive(false);
     }
 }
