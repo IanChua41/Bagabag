@@ -16,6 +16,12 @@ public class LightBehavior : MonoBehaviour
         {
             inSpotlight = true;
             Debug.Log("Player has entered the trigger");
+
+            PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
+            if (playerMovement != null)
+            {
+                playerMovement.SetInSpotlight(true);
+            }
         }
     }
 
@@ -26,6 +32,13 @@ public class LightBehavior : MonoBehaviour
             lightOff = true;
             lightInitialTime = 0.0f;
             Debug.Log("Player has exited the trigger");
+
+            // Set the player's inSpotlight status to false
+            PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
+            if (playerMovement != null)
+            {
+                playerMovement.SetInSpotlight(false);
+            }
         }
     }
 
