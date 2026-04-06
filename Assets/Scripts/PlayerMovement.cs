@@ -124,4 +124,23 @@ public class PlayerMovement : MonoBehaviour
             staminaBar?.OnStaminaRecovering(currentStamina);
         }
     }
+
+    public void AddStamina(int amount)
+    {
+        // Add the amount to the player's actual stamina pool
+        currentStamina += amount;
+
+        // Clamp the stamina so it doesn't exceed the maximum
+        if (currentStamina >= maxStamina)
+        {
+            currentStamina = maxStamina;
+        }
+
+        // Notify the StaminaBar to update the UI
+        if (staminaBar != null)
+        {
+            staminaBar.OnStaminaRecovering(currentStamina);
+        }
+    }
+
 }
