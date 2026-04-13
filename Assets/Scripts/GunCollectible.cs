@@ -10,12 +10,15 @@ public class Gun : MonoBehaviour
     private Collider gunCollider;
 
     private GunCollectibleManager gunCollectibleManager;
+    private PlayerInventory playerInventory;
 
     private void Start()
     {
         gunCollectibleManager = GunCollectibleManager.instance;
         gunRb = GetComponent<Rigidbody>();
         gunCollider = GetComponent<Collider>();
+
+        playerInventory = FindFirstObjectByType<PlayerInventory>();
     }
 
     private void Update()
@@ -48,5 +51,8 @@ public class Gun : MonoBehaviour
         // 3. Reset position and rotation to match the Hold Point exactly
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
+
+        // 4. Update player inventory
+        playerInventory.hasGun = true;
     }
 }
