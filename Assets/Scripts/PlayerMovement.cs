@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Stamina Settings")]
     public int maxStamina = 1000; // Maximum stamina points
+    public int startingStamina = 100;
     public int staminaDepletionRate = 50; // Stamina points depleted per second while sprinting
     public int staminaRecoveryRateWalking = 25; // Stamina points recovered per second while walking
     public int staminaRecoveryRateIdle = 50; // Stamina points recovered per second while idle
@@ -33,13 +34,14 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        currentStamina = maxStamina; // Initialize stamina to full
+        currentStamina = startingStamina;
 
         if (staminaBar != null)
         {
             staminaBar.SetMaxStamina(maxStamina);
         }
     }
+
 
     void Update()
     {
