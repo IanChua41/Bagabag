@@ -74,34 +74,54 @@ public class Checkpoint : MonoBehaviour
     public static bool TryTeleportToCheckpoint(GameObject actor, OwnerType ownerType, float clearance)
     {
         Transform checkpoint = ownerType == OwnerType.Player ? playerCheckpoint : monsterCheckpoint;
+        Vector3 destination;
+
         if (checkpoint == null)
         {
             if (ownerType == OwnerType.Player && hasDefaultPlayerCheckpoint)
             {
-                Vector3 destination = defaultPlayerCheckpointPosition;
-                destination.y += clearance;
-                actor.transform.position = destination;
-                Debug.Log($"Player checkpoint not set, using default start position {destination}.");
-                return true;
+                destination = defaultPlayerCheckpointPosition;
             }
             else if (ownerType == OwnerType.Monster && hasDefaultMonsterCheckpoint)
             {
-                Vector3 destination = defaultMonsterCheckpointPosition;
-                destination.y += clearance;
-                actor.transform.position = destination;
-                Debug.Log($"Monster checkpoint not set, using default start position {destination}.");
-                return true;
+                destination = defaultMonsterCheckpointPosition;
+            }
+            else
+            {
+                Debug.LogWarning(ownerType + " checkpoint is not set.");
+                return false;
             }
 
-            Debug.LogWarning(ownerType + " checkpoint is not set.");
-            return false;
+            destination.y += clearance;
+            TeleportActor(actor, destination);
+            Debug.Log($"{ownerType} checkpoint not set, using default start position {destination}.");
+            return true;
         }
 
-        Vector3 checkpointDestination = checkpoint.position;
-        checkpointDestination.y += clearance;
-        actor.transform.position = checkpointDestination;
-        Debug.Log($"Teleported {actor.name} to {ownerType} checkpoint {checkpoint.name} at {checkpointDestination}.");
+        destination = checkpoint.position;
+        destination.y += clearance;
+        TeleportActor(actor, destination);
+        Debug.Log($"Teleported {actor.name} to {ownerType} checkpoint {checkpoint.name} at {destination}.");
         return true;
     }
+
+    private static void TeleportActor(GameObject actor, Vector3 destination)
+    {
+        CharacterController controller = actor.GetComponent<CharacterController>();
+        bool hadController = controller != null;
+
+        if (hadController)
+        {
+            controller.enabled = false;
+        }
+
+        actor.transform.position = destination;
+
+        if (hadController)
+        {
+            controller.enabled = true;
+        }
+    }
 }
+
 
