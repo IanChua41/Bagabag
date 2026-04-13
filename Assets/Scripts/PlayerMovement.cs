@@ -142,4 +142,5 @@ public class PlayerMovement : MonoBehaviour
             staminaBar.OnStaminaRecovering(currentStamina);
         }
     }
+
 }
