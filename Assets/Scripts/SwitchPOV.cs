@@ -8,14 +8,14 @@ public class SwitchPOV : MonoBehaviour
 
     [SerializeField] GameObject firstPersonCam;
     [SerializeField] GameObject thirdPersonCam;
-    [SerializeField] GameObject cinematicCam;
+    //[SerializeField] GameObject cinematicCam;
 
     private void Start()
     {
         // third person by default on start
         firstPersonCam.SetActive(false);
         thirdPersonCam.SetActive(true);
-        cinematicCam.SetActive(false);
+        //cinematicCam.SetActive(false);
 
         thirdPerson = true;
     }
@@ -42,7 +42,7 @@ public class SwitchPOV : MonoBehaviour
         thirdPerson = false;
         firstPersonCam.SetActive(true);
         thirdPersonCam.SetActive(false);
-        cinematicCam.SetActive(false);
+        //cinematicCam.SetActive(false);
     }
 
     public void SwitchToThirdPerson()
@@ -51,14 +51,14 @@ public class SwitchPOV : MonoBehaviour
         thirdPerson = true;
         thirdPersonCam.SetActive(true);
         firstPersonCam.SetActive(false);
-        cinematicCam.SetActive(false);
+        //cinematicCam.SetActive(false);
     }
 
     public void SwitchToCinematic()
     {
         firstPerson = false;
         thirdPerson = false;
-        cinematicCam.SetActive(true);
+        //cinematicCam.SetActive(true);
         firstPersonCam.SetActive(false);
         thirdPersonCam.SetActive(false);
     }
