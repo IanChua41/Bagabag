@@ -13,8 +13,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Stamina Settings")]
     public int maxStamina = 1000; // Maximum stamina points
     public int staminaDepletionRate = 50; // Stamina points depleted per second while sprinting
-    public int staminaRecoveryRateWalking = 50; // Stamina points recovered per second while walking
-    public int staminaRecoveryRateIdle = 100; // Stamina points recovered per second while idle
+    public int staminaRecoveryRateWalking = 25; // Stamina points recovered per second while walking
+    public int staminaRecoveryRateIdle = 50; // Stamina points recovered per second while idle
     private int currentStamina;
 
     [Header("References")]
@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 inputDirection;
     private bool isSprinting;
     private bool jumpInput;
+    private bool inSpotlight;
 
     [Header("Character Rotation")]
     public Transform orientation;
@@ -143,4 +144,18 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void ReduceStamina(int amount)
+    {
+        currentStamina = Mathf.Clamp(currentStamina - amount, 0, maxStamina);
+    }
+
+    public void SetInSpotlight(bool state)
+    {
+        inSpotlight = state;
+    }
+
+    public bool IsInSpotlight() 
+    { 
+        return inSpotlight; 
+    }
 }
