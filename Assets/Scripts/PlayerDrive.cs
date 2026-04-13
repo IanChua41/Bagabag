@@ -4,39 +4,51 @@ using UnityEngine;
 
 public class PlayerDrive : MonoBehaviour
 {
-    private float steering = 120;
-    private float speed = 10;
+    [Header("Drive Settings")]
+    public float forwardSpeed = 10f;
+    public float reverseSpeed = 4f;
+    public float forwardSteering = 120f;
+    public float reverseSteering = 50f;
 
     bool isDriving = false;
     float slowTimer = 0f;
-
 
     void Update()
     {
         if (!isDriving)
             return;
 
-        float x = 0, y = 0;
+        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = Input.GetAxis("Horizontal");
 
-        // get forward/backward input
-        y = Input.GetAxis("Vertical") * speed * Time.deltaTime;
+        float currentSpeed = verticalInput >= 0f ? forwardSpeed : reverseSpeed;
+        float currentSteering = verticalInput >= 0f ? forwardSteering : reverseSteering;
 
-        // if vehicle is moving, allow steering
-        if (Input.GetAxis("Vertical") != 0)
-            x = Input.GetAxis("Horizontal") * steering * Time.deltaTime;
+        float moveAmount = verticalInput * currentSpeed * Time.deltaTime;
 
-        transform.Rotate(0, x, 0);
-        transform.Translate(0, 0, y);
+        // reverse steering should be opposite when moving backward
+        if (Mathf.Abs(verticalInput) > 0.01f && Mathf.Abs(horizontalInput) > 0.01f)
+        {
+            float steerDirection = verticalInput >= 0f ? 1f : -1f;
+            float turnAmount = horizontalInput * currentSteering * Time.deltaTime * steerDirection;
+            transform.Rotate(0f, turnAmount, 0f);
+        }
+
+        transform.Translate(0f, 0f, moveAmount);
 
         if (Time.time > slowTimer)
         {
-            speed = 10;
-            steering = 120;
+            forwardSpeed = 10f;
+            forwardSteering = 120f;
+            reverseSpeed = 4f;
+            reverseSteering = 50f;
         }
         else
         {
-            speed = 2;
-            steering = 50;
+            forwardSpeed = 2f;
+            forwardSteering = 50f;
+            reverseSpeed = 2f;
+            reverseSteering = 25f;
         }
     }
 
