@@ -4,7 +4,9 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Enemy
+  - PRespawn
+  - MRespawn
+  - Monster
   layers:
   - Default
   - TransparentFX
