@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
@@ -11,50 +10,44 @@ public class PlayerMovement : MonoBehaviour
     public float jumpHeight = 2f;
     public float gravity = -9.81f;
 
+    [Header("Stamina Settings")]
+    public int maxStamina = 1000; // Maximum stamina points
+    public int startingStamina = 100;
+    public int staminaDepletionRate = 50; // Stamina points depleted per second while sprinting
+    public int staminaRecoveryRateWalking = 25; // Stamina points recovered per second while walking
+    public int staminaRecoveryRateIdle = 50; // Stamina points recovered per second while idle
+    private int currentStamina;
+
+    [Header("References")]
+    public StaminaBar staminaBar; // Reference to the stamina bar script
+
     private CharacterController controller;
     private Vector3 velocity;
     private Vector2 inputDirection;
     private bool isSprinting;
     private bool jumpInput;
+    private bool inSpotlight;
 
     [Header("Character Rotation")]
     public Transform orientation;
 
-    [Header("Stamina Settings")]
-    public int maxStamina = 1000; // Maximum stamina
-    public int staminaRecoveryRate = 20; // Stamina recovered per second
-    public int sprintStaminaCost = 10; // Stamina cost per second while sprinting
-    public int jumpStaminaCost = 50; // Stamina cost for jumping
-    private int currentStamina;
-    private bool canMove = true;
-
-    [Header("References")]
-    public StaminaBar staminaBar; // Reference to the stamina bar script
-
-    private bool isRecoveringStamina;
-    private bool inSpotlight; // Spotlight status
-
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        currentStamina = maxStamina;
+        currentStamina = startingStamina;
 
         if (staminaBar != null)
         {
             staminaBar.SetMaxStamina(maxStamina);
-            staminaBar.UpdateStamina(currentStamina);
         }
     }
 
+
     void Update()
     {
-        if (canMove)
-        {
-            MovePlayer();
-            HandleJump();
-        }
-
-        HandleStaminaRecovery();
+        MovePlayer();
+        HandleJumpAndGravity();
+        RecoverStamina();
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -79,83 +72,92 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 move = orientation.right * inputDirection.x + orientation.forward * inputDirection.y;
 
-        float speed = isSprinting && inputDirection.magnitude > 0 ? sprintSpeed : walkSpeed;
-
+        // Handle sprinting and stamina
         if (isSprinting && inputDirection.magnitude > 0)
         {
-            ReduceStamina(Mathf.RoundToInt(sprintStaminaCost * Time.deltaTime));
+            currentStamina -= Mathf.RoundToInt(staminaDepletionRate * Time.deltaTime);
+            if (currentStamina <= 0)
+            {
+                currentStamina = 0;
+            }
+
+            // Notify StaminaBar about stamina depletion
+            staminaBar?.OnStaminaDepleting(currentStamina);
         }
 
-        if (currentStamina <= 0)
+        // Disable horizontal movement when stamina is depleted
+        if (currentStamina > 0)
         {
-            canMove = false;
-            return;
+            float speed = isSprinting ? sprintSpeed : walkSpeed;
+            controller.Move(move * speed * Time.deltaTime);
+        }
+    }
+
+    void HandleJumpAndGravity()
+    {
+        if (controller.isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f; // Small downward force to keep grounded
         }
 
-        controller.Move(move * speed * Time.deltaTime);
-
-        if (controller.isGrounded)
+        if (jumpInput && controller.isGrounded)
         {
-            velocity.y = -2f;
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            jumpInput = false; // Reset jump input after jumping
         }
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
 
-    void HandleJump()
+    void RecoverStamina()
     {
-        if (jumpInput && controller.isGrounded && currentStamina > 0)
+        // Recover stamina only when not sprinting
+        if (!isSprinting)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            ReduceStamina(jumpStaminaCost);
-            jumpInput = false;
+            int recoveryRate = inputDirection.magnitude > 0 ? staminaRecoveryRateWalking : staminaRecoveryRateIdle;
+
+            currentStamina += Mathf.RoundToInt(recoveryRate * Time.deltaTime);
+            if (currentStamina >= maxStamina)
+            {
+                currentStamina = maxStamina;
+            }
+
+            // Notify StaminaBar about stamina recovery
+            staminaBar?.OnStaminaRecovering(currentStamina);
         }
     }
 
-    void HandleStaminaRecovery()
+    public void AddStamina(int amount)
     {
-        if (!isSprinting && currentStamina < maxStamina)
+        // Add the amount to the player's actual stamina pool
+        currentStamina += amount;
+
+        // Clamp the stamina so it doesn't exceed the maximum
+        if (currentStamina >= maxStamina)
         {
-            currentStamina += Mathf.RoundToInt(staminaRecoveryRate * Time.deltaTime);
-            currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
+            currentStamina = maxStamina;
+        }
 
-            if (staminaBar != null)
-            {
-                staminaBar.UpdateStamina(currentStamina);
-            }
-
-            if (currentStamina > 0)
-            {
-                canMove = true;
-            }
+        // Notify the StaminaBar to update the UI
+        if (staminaBar != null)
+        {
+            staminaBar.OnStaminaRecovering(currentStamina);
         }
     }
 
     public void ReduceStamina(int amount)
     {
-        currentStamina -= amount;
-        currentStamina = Mathf.Max(currentStamina, 0);
-
-        if (staminaBar != null)
-        {
-            staminaBar.UpdateStamina(currentStamina);
-        }
-
-        if (currentStamina <= 0)
-        {
-            canMove = false;
-        }
+        currentStamina = Mathf.Clamp(currentStamina - amount, 0, maxStamina);
     }
 
-    public void SetInSpotlight(bool status)
+    public void SetInSpotlight(bool state)
     {
-        inSpotlight = status;
-        Debug.Log($"Player spotlight status set to: {inSpotlight}");
+        inSpotlight = state;
     }
 
-    public bool IsInSpotlight()
-    {
-        return inSpotlight;
+    public bool IsInSpotlight() 
+    { 
+        return inSpotlight; 
     }
 }
