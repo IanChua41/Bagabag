@@ -48,7 +48,7 @@ public class MonsterFollow : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            TriggerCheckpointRespawn(collision.gameObject);
+            TriggerCheckpointRespawn(collision.gameObject);   
         }
     }
 
@@ -56,7 +56,9 @@ public class MonsterFollow : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            other.GetComponent<CharacterController>().enabled = false; // disable player control during respawn
             TriggerCheckpointRespawn(other.gameObject);
+            other.GetComponent<CharacterController>().enabled = true; // re-enable player control after respawn
         }
     }
 
