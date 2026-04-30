@@ -9,13 +9,24 @@ public class LightBehavior : MonoBehaviour
     private float lightInitialTime = 0.0f;
     private bool inSpotlight = false;
     private bool lightOff = false;
+    private bool playerInsideTrigger = false;
+    private PlayerMovement cachedPlayerMovement;
 
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            playerInsideTrigger = true;
             inSpotlight = true;
+            lightOff = false;
+            lightInitialBufferTime = 0.0f;
             Debug.Log("Player has entered the trigger");
+
+            cachedPlayerMovement = other.GetComponent<PlayerMovement>();
+            if (cachedPlayerMovement != null)
+            {
+                cachedPlayerMovement.SetInSpotlight(true);
+            }
         }
     }
 
@@ -23,9 +34,18 @@ public class LightBehavior : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            playerInsideTrigger = false;
+            inSpotlight = false;
             lightOff = true;
             lightInitialTime = 0.0f;
             Debug.Log("Player has exited the trigger");
+
+            // Set the player's inSpotlight status to false
+            if (cachedPlayerMovement != null)
+            {
+                cachedPlayerMovement.SetInSpotlight(false);
+            }
+            cachedPlayerMovement = null;
         }
     }
 
@@ -49,6 +69,12 @@ public class LightBehavior : MonoBehaviour
                 spotLight.SetActive(true);
                 lightOff = false;
             }
+        }
+
+        if (cachedPlayerMovement != null)
+        {
+            bool playerInActiveLight = playerInsideTrigger && spotLight.activeSelf && !lightOff;
+            cachedPlayerMovement.SetInSpotlight(playerInActiveLight);
         }
     }
 }
