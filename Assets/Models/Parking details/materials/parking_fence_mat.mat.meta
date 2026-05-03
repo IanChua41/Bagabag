@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 63f4de00867d6ab4e87f322396a8638c
+timeCreated: 1534445268
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 126101
+  packageName: Parking details (small pack)
+  packageVersion: 1.0
+  assetPath: Assets/Parking details/materials/parking_fence_mat.mat
+  uploadId: 723935

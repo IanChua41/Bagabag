@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 8bd829e114e3a9f46bac4d6a145f5848
+timeCreated: 1534446107
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 126101
+  packageName: Parking details (small pack)
+  packageVersion: 1.0
+  assetPath: Assets/Parking details/prefabs/parking_machine_prefab.prefab
+  uploadId: 723935

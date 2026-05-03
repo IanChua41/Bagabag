@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: d14c836f3a4891e43822e91d24e005cf
+timeCreated: 1534446095
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 126101
+  packageName: Parking details (small pack)
+  packageVersion: 1.0
+  assetPath: Assets/Parking details/prefabs/parking_lamp_prefab.prefab
+  uploadId: 723935
