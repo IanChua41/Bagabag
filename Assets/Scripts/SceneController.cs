@@ -22,7 +22,7 @@ public class SceneController : MonoBehaviour
 
     public void MainMenu()
     {
-        SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadSceneAsync(0);
     }
 
     public void NextLevel()
@@ -35,23 +35,28 @@ public class SceneController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public void TutorialLevel()
+    {
+        SceneManager.LoadScene(1);
+    }
+
     public void Level1()
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadSceneAsync(2);
     }
 
     public void Level2()
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 2);
+        SceneManager.LoadSceneAsync(3);
     }
 
     public void Level3()
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 3);
+        SceneManager.LoadSceneAsync(4);
     }
     public void Credits()
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 4);
+        SceneManager.LoadSceneAsync(5);
     }
 
     public void LoadScene(string sceneName)
@@ -61,13 +66,13 @@ public class SceneController : MonoBehaviour
 
     public void QuitButton()
     {
-        Debug.LogWarning("Play mode editor closed");
-        // Exit function for Unity Editor build
+        /*Debug.LogWarning("Play mode editor closed");
+
         if (Application.isEditor)
         {
             UnityEditor.EditorApplication.isPlaying = false;
-        }
+        }*/
         // Use this only when game is ready to be built into a .exe file
-        //Application.Quit();
+        Application.Quit();
     }
 }
