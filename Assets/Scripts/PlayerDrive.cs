@@ -10,8 +10,21 @@ public class PlayerDrive : MonoBehaviour
     public float forwardSteering = 120f;
     public float reverseSteering = 50f;
 
+    private float baseForwardSpeed;
+    private float baseReverseSpeed;
+    private float baseForwardSteering;
+    private float baseReverseSteering;
+
     bool isDriving = false;
     float slowTimer = 0f;
+
+    void Start()
+    {
+        baseForwardSpeed = forwardSpeed;
+        baseReverseSpeed = reverseSpeed;
+        baseForwardSteering = forwardSteering;
+        baseReverseSteering = reverseSteering;
+    }
 
     void Update()
     {
@@ -38,10 +51,10 @@ public class PlayerDrive : MonoBehaviour
 
         if (Time.time > slowTimer)
         {
-            forwardSpeed = 10f;
-            forwardSteering = 120f;
-            reverseSpeed = 4f;
-            reverseSteering = 50f;
+            forwardSpeed = baseForwardSpeed;
+            forwardSteering = baseForwardSteering;
+            reverseSpeed = baseReverseSpeed;
+            reverseSteering = baseReverseSteering;
         }
         else
         {
@@ -61,4 +74,17 @@ public class PlayerDrive : MonoBehaviour
     {
         isDriving = false;
     }
+
+    public void SetSpeeds(float fwd, float rev, float fwdSteer, float revSteer)
+    {
+        forwardSpeed = fwd;
+        reverseSpeed = rev;
+        forwardSteering = fwdSteer;
+        reverseSteering = revSteer;
+        baseForwardSpeed = fwd;
+        baseReverseSpeed = rev;
+        baseForwardSteering = fwdSteer;
+        baseReverseSteering = revSteer;
+    }
 }
+

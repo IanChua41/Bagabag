@@ -7,6 +7,12 @@ public class Car : MonoBehaviour
     [SerializeField] GameObject rearviewMirror;
     [SerializeField] float enterRange = 3f;
 
+    [Header("Movement Settings")]
+    [SerializeField] public float forwardSpeed = 10f;
+    [SerializeField] public float reverseSpeed = 4f;
+    [SerializeField] public float forwardSteering = 120f;
+    [SerializeField] public float reverseSteering = 50f;
+
     private GameObject player;
     private PlayerDrive drive;
     private bool inCar = false;
@@ -58,6 +64,7 @@ public class Car : MonoBehaviour
         }
 
         drive.SetToDrive(); // enable driving controls
+        drive.SetSpeeds(forwardSpeed, reverseSpeed, forwardSteering, reverseSteering);
     }
 
     public void ExitCar()
