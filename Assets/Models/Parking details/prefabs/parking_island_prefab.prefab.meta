@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 0dfb927eac0b57a45a49b3900bf4c125
+timeCreated: 1534446081
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 126101
+  packageName: Parking details (small pack)
+  packageVersion: 1.0
+  assetPath: Assets/Parking details/prefabs/parking_island_prefab.prefab
+  uploadId: 723935
