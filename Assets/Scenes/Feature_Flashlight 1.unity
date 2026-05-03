@@ -1743,7 +1743,6 @@ GameObject:
   - component: {fileID: 1457931681}
   - component: {fileID: 1457931680}
   - component: {fileID: 1457931679}
-  - component: {fileID: 1457931682}
   m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
@@ -1760,7 +1759,7 @@ Transform:
   m_GameObject: {fileID: 1457931677}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.408}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1779,6 +1778,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggleKey: 102
+  fpsCamera: {fileID: 984719185}
+  range: 10
+  Enemy:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!114 &1457931680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1814,7 +1818,7 @@ Light:
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 18.68
-  m_Range: 8.71
+  m_Range: 3.33
   m_SpotAngle: 30
   m_InnerSpotAngle: 25.870262
   m_CookieSize: 10
@@ -1867,27 +1871,6 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!65 &1457931682
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1457931677}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 3.29, y: 1, z: 8.48}
-  m_Center: {x: 0, y: 0, z: 5.35}
 --- !u!1 &1497949221
 GameObject:
   m_ObjectHideFlags: 0
@@ -1902,7 +1885,7 @@ GameObject:
   - component: {fileID: 1497949223}
   - component: {fileID: 1497949222}
   - component: {fileID: 1497949227}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
