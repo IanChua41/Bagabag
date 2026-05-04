@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 6787fe628b809a84592f525df0c54794
+timeCreated: 1534446121
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 126101
+  packageName: Parking details (small pack)
+  packageVersion: 1.0
+  assetPath: Assets/Parking details/prefabs/parking_signboard_prefab.prefab
+  uploadId: 723935

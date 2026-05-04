@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: ff275331aff5bb44396b32379640e30b
+timeCreated: 1534445268
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 126101
+  packageName: Parking details (small pack)
+  packageVersion: 1.0
+  assetPath: Assets/Parking details/materials/parking_island_mat.mat
+  uploadId: 723935
