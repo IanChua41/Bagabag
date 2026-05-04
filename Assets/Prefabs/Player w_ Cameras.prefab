@@ -29,8 +29,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2279661476287666}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.25340134, y: -0.0000000072062254, z: 0.0000000018876787, w: 0.9673613}
-  m_LocalPosition: {x: -0.72, y: 5.87, z: -9.06753}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.71999174, y: 4.3599997, z: -5.06753}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -202,7 +202,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6930041269066158946
 Transform:
   m_ObjectHideFlags: 0
@@ -796,8 +796,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b95883bf1bcd044aa294a16502b939, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 5
-  sprintSpeed: 8
+  walkSpeed: 15
+  sprintSpeed: 20
   jumpHeight: 2
   gravity: -9.81
   maxStamina: 1000
@@ -1017,8 +1017,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5161202044142419144}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.25340134, y: -0.000000007546483, z: 0.0000000031866165, w: 0.9673613}
-  m_LocalPosition: {x: -0.72, y: 5.87, z: -9.06753}
+  m_LocalRotation: {x: 0.2534013, y: 0.000000010099752, z: -0.0000000026456408, w: 0.96736133}
+  m_LocalPosition: {x: -0.71999174, y: 5.870002, z: -9.06753}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1477,6 +1477,7 @@ GameObject:
   - component: {fileID: 6778561358420256456}
   - component: {fileID: 1543070834654896940}
   - component: {fileID: 7948221925999659229}
+  - component: {fileID: 4766324290695505611}
   m_Layer: 0
   m_Name: First Person Camera
   m_TagString: Untagged
@@ -1493,7 +1494,7 @@ Transform:
   m_GameObject: {fileID: 7439553963708244917}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.72, y: 4.3599997, z: -5.06753}
+  m_LocalPosition: {x: -0.71999174, y: 4.3599997, z: -5.06753}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1652,6 +1653,18 @@ MonoBehaviour:
   mouseSensitivity: 200
   rotationSpeed: 10
   maxLookAngle: 80
+--- !u!114 &4766324290695505611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7439553963708244917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5891378b6e576247957d507edd3051b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7598550580167628589
 GameObject:
   m_ObjectHideFlags: 0
@@ -2007,7 +2020,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6576575030798567510
 Transform:
   m_ObjectHideFlags: 0
