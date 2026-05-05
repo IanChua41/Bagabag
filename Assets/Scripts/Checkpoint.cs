@@ -34,7 +34,7 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (owner == OwnerType.Player && other.CompareTag("Player"))
+        if (owner == OwnerType.Player && (other.CompareTag("Player") || other.CompareTag("Car")))
         {
             playerCheckpoints[checkpointIndex] = transform;
             Debug.Log("Player checkpoint " + (checkpointIndex + 1) + " updated: " + name, this);
