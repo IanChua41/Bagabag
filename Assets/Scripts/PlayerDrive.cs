@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerDrive : MonoBehaviour
 {
     [Header("Drive Settings")]
@@ -16,7 +16,7 @@ public class PlayerDrive : MonoBehaviour
     private float baseForwardSteering;
     private float baseReverseSteering;
 
-    private CharacterController controller;
+    private Rigidbody rb;
     bool isDriving = false;
     float slowTimer = 0f;
     
@@ -25,7 +25,7 @@ public class PlayerDrive : MonoBehaviour
 
     void Start()
     {
-        controller = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
         baseForwardSpeed = forwardSpeed;
         baseReverseSpeed = reverseSpeed;
         baseForwardSteering = forwardSteering;
@@ -68,9 +68,9 @@ public class PlayerDrive : MonoBehaviour
         float currentSpeed = verticalInput >= 0f ? forwardSpeed : reverseSpeed;
         float currentSteering = verticalInput >= 0f ? forwardSteering : reverseSteering;
 
-        // Move using CharacterController for collision detection
+        // Move using Rigidbody velocity (preserves gravity)
         Vector3 moveDirection = transform.forward * verticalInput * currentSpeed;
-        controller.Move(moveDirection * Time.fixedDeltaTime);
+        rb.linearVelocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z);
 
         // reverse steering should be opposite when moving backward
         if (Mathf.Abs(verticalInput) > 0.01f && Mathf.Abs(horizontalInput) > 0.01f)
