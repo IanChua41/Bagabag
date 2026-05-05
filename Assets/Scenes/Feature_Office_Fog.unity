@@ -14,10 +14,10 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 1
-  m_FogColor: {r: 0, g: 0, b: 0, a: 1}
+  m_Fog: 0
+  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.06
+  m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -10210,7 +10210,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1588368923}
+  m_Mesh: {fileID: 159363318}
 --- !u!33 &543860126
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -22680,7 +22680,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1271269421}
+  m_Mesh: {fileID: 159363318}
 --- !u!33 &1201530077
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -24473,7 +24473,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 250687175}
+  m_Mesh: {fileID: 1157279952}
 --- !u!33 &1309784407
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -28031,7 +28031,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 562771407}
+  m_Mesh: {fileID: 772168700}
 --- !u!33 &1524391807
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -40550,7 +40550,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1105480146}
+  m_Mesh: {fileID: 1627373940}
 --- !u!33 &2076316930
 MeshFilter:
   m_ObjectHideFlags: 10
