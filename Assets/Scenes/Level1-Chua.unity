@@ -6926,7 +6926,7 @@ GameObject:
   - component: {fileID: 1852773492}
   - component: {fileID: 1852773491}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: monster
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7293,7 +7293,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5036392884244121691, guid: f1226f46f6dd21b49ba5022bbb48b5de, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8643064444399380094, guid: f1226f46f6dd21b49ba5022bbb48b5de, type: 3}
       propertyPath: rearviewMirror
