@@ -75,6 +75,7 @@ public class MonsterBehavior : MonoBehaviour
             Checkpoint.TryTeleportToCheckpoint(gameObject, Checkpoint.OwnerType.Monster, 0.1f);
             Debug.Log("Player caught! Teleporting to checkpoint...");
         }
+
     }
 
 }
