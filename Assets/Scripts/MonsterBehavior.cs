@@ -66,4 +66,15 @@ public class MonsterBehavior : MonoBehaviour
         transform.position += directionToPlayer * followSpeed * Time.deltaTime;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            // Teleport both player and monster to the latest checkpoint
+            Checkpoint.TryTeleportToCheckpoint(other.gameObject, Checkpoint.OwnerType.Player, 0.1f);
+            Checkpoint.TryTeleportToCheckpoint(gameObject, Checkpoint.OwnerType.Monster, 0.1f);
+            Debug.Log("Player caught! Teleporting to checkpoint...");
+        }
+    }
+
 }
