@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4071107897760886}
-  - component: {fileID: 494009446162505417}
   m_Layer: 0
   m_Name: EA03_Nature_Tree_01b_PRE
   m_TagString: Untagged
@@ -31,15 +30,48 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7573231606766578128}
+  - {fileID: 4683686110024420273}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &494009446162505417
+--- !u!1 &2929397410457318600
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4683686110024420273}
+  - component: {fileID: 4549949955885484001}
+  m_Layer: 0
+  m_Name: Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4683686110024420273
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2929397410457318600}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 4071107897760886}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &4549949955885484001
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1955220120978140}
+  m_GameObject: {fileID: 2929397410457318600}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -54,7 +86,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300002, guid: 13ec5d0bbf56c734d9422c7089f60980, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 13ec5d0bbf56c734d9422c7089f60980, type: 3}
 --- !u!1001 &8835743358500852757
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -102,6 +134,10 @@ PrefabInstance:
     - target: {fileID: 1407194292440595909, guid: 15660ce66a698f34182885f66acba1ae, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5375661496364225039, guid: 15660ce66a698f34182885f66acba1ae, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8283360103146084140, guid: 15660ce66a698f34182885f66acba1ae, type: 3}
       propertyPath: m_Name
