@@ -2,8 +2,16 @@ using UnityEngine;
 
 public class Statue : MonoBehaviour, IInteractable
 {
+    public bool isFixed = false;
+    
     public void Interact()
     {
-        Debug.Log("Statue fixed.");
+        if (isFixed)
+            Debug.Log("Statue is already fixed.");
+        else
+        {
+            Debug.Log("Statue fixed.");
+            isFixed = true;
+        }
     }
 }

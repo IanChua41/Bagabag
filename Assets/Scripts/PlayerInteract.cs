@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 interface IInteractable 
@@ -7,8 +8,12 @@ interface IInteractable
 
 public class PlayerInteract : MonoBehaviour
 {
+    [SerializeField] TextMeshProUGUI tmp;
+    
     private Transform interactorSource;
     private float interactRange = 10f;
+
+    private bool isPrompting = false;
 
     private void Start()
     {
@@ -17,16 +22,34 @@ public class PlayerInteract : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        Ray r = new Ray(interactorSource.position, interactorSource.forward);
+
+        IInteractable interactObj = null;
+        bool hasInteractable = false;
+
+        if (Physics.Raycast(r, out RaycastHit hitInfo, interactRange))
         {
-            Ray r = new Ray(interactorSource.position, interactorSource.forward);
-            if (Physics.Raycast(r, out RaycastHit hitInfo, interactRange))
+            hasInteractable = hitInfo.collider.TryGetComponent(out interactObj);
+        }
+
+        if (hasInteractable)
+        {
+            if (!isPrompting)
             {
-                if (hitInfo.collider.gameObject.TryGetComponent(out IInteractable interactObj))
-                {
-                    interactObj.Interact();
-                }
+                tmp.gameObject.SetActive(true);
+                tmp.text = "Press E to interact";
+                isPrompting = true;
             }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                interactObj.Interact();
+            }
+        }
+        else if (isPrompting)
+        {
+            tmp.gameObject.SetActive(false);
+            isPrompting = false;
         }
     }
 }
