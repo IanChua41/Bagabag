@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     public StaminaBar staminaBar; // Reference to the stamina bar script
 
     private CharacterController controller;
+    private Animator animator;
     private Vector3 velocity;
     private Vector2 inputDirection;
     private bool isSprinting;
@@ -34,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
         currentStamina = startingStamina;
 
         if (staminaBar != null)
@@ -48,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
         MovePlayer();
         HandleJumpAndGravity();
         RecoverStamina();
+        UpdateAnimationState();
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -97,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (controller.isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f; // Small downward force to keep grounded
+            velocity.y = -0.5f; // Small downward force to keep grounded without sinking into the floor
         }
 
         if (jumpInput && controller.isGrounded)
@@ -128,6 +131,24 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void UpdateAnimationState()
+    {
+        if (animator == null)
+        {
+            return;
+        }
+
+        bool hasMoveInput = inputDirection.sqrMagnitude > 0.01f;
+        bool canMove = currentStamina > 0;
+        bool isRunning = isSprinting && hasMoveInput && canMove;
+        bool isWalking = hasMoveInput && canMove && !isRunning;
+        bool isIdle = !hasMoveInput || !canMove;
+
+        animator.SetBool("isWalking", isWalking);
+        animator.SetBool("isRunning", isRunning);
+        animator.SetBool("isIdle", isIdle);
+    }
+
     public void AddStamina(int amount)
     {
         // Add the amount to the player's actual stamina pool
@@ -156,8 +177,8 @@ public class PlayerMovement : MonoBehaviour
         inSpotlight = state;
     }
 
-    public bool IsInSpotlight() 
-    { 
-        return inSpotlight; 
+    public bool IsInSpotlight()
+    {
+        return inSpotlight;
     }
 }
