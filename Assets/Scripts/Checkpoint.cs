@@ -10,18 +10,19 @@ public class Checkpoint : MonoBehaviour
 
     [Header("Checkpoint Settings")]
     public OwnerType owner;
+    public int checkpointIndex; // 0, 1, or 2 for checkpoints 1, 2, 3
     public bool registerAsDefaultOnStart = true;
     public float teleportClearance = 0.1f;
 
-    private static Transform playerCheckpoint;
-    private static Transform monsterCheckpoint;
-    private static Vector3 defaultPlayerCheckpointPosition;
-    private static Vector3 defaultMonsterCheckpointPosition;
-    private static bool hasDefaultPlayerCheckpoint;
-    private static bool hasDefaultMonsterCheckpoint;
+    private static Transform[] playerCheckpoints = new Transform[3];
+    private static Transform[] monsterCheckpoints = new Transform[3];
+    private static Vector3[] defaultPlayerCheckpointPositions = new Vector3[3];
+    private static Vector3[] defaultMonsterCheckpointPositions = new Vector3[3];
+    private static bool[] hasDefaultPlayerCheckpoints = new bool[3];
+    private static bool[] hasDefaultMonsterCheckpoints = new bool[3];
 
-    public static Transform PlayerCheckpoint => playerCheckpoint;
-    public static Transform MonsterCheckpoint => monsterCheckpoint;
+    public static Transform[] PlayerCheckpoints => playerCheckpoints;
+    public static Transform[] MonsterCheckpoints => monsterCheckpoints;
 
     private void Start()
     {
@@ -33,75 +34,142 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (owner == OwnerType.Player && other.CompareTag("Player"))
+        if (owner == OwnerType.Player && (other.CompareTag("Player") || other.CompareTag("Car")))
         {
-            playerCheckpoint = transform;
-            Debug.Log("Player checkpoint updated: " + name, this);
+            playerCheckpoints[checkpointIndex] = transform;
+            Debug.Log("Player checkpoint " + (checkpointIndex + 1) + " updated: " + name, this);
+            Debug.Log($"Player is now registered at checkpoint {(checkpointIndex + 1)} position: {transform.position}");
         }
         else if (owner == OwnerType.Monster && other.CompareTag("Monster"))
         {
-            monsterCheckpoint = transform;
-            Debug.Log("Monster checkpoint updated: " + name, this);
+            monsterCheckpoints[checkpointIndex] = transform;
+            Debug.Log("Monster checkpoint " + (checkpointIndex + 1) + " updated: " + name, this);
+            Debug.Log($"Monster is now registered at checkpoint {(checkpointIndex + 1)} position: {transform.position}");
         }
     }
 
     private void RegisterDefaultCheckpoint()
     {
-        if (owner == OwnerType.Player && playerCheckpoint == null)
+        if (owner == OwnerType.Player && playerCheckpoints[checkpointIndex] == null)
         {
-            playerCheckpoint = transform;
+            playerCheckpoints[checkpointIndex] = transform;
         }
-        else if (owner == OwnerType.Monster && monsterCheckpoint == null)
+        else if (owner == OwnerType.Monster && monsterCheckpoints[checkpointIndex] == null)
         {
-            monsterCheckpoint = transform;
+            monsterCheckpoints[checkpointIndex] = transform;
         }
     }
 
-    public static void RegisterDefaultCheckpointPosition(OwnerType ownerType, Vector3 position)
+    public static void RegisterDefaultCheckpointPosition(OwnerType ownerType, int checkpointIndex, Vector3 position)
     {
+        if (checkpointIndex < 0 || checkpointIndex >= 3)
+        {
+            Debug.LogWarning("Checkpoint index out of range: " + checkpointIndex);
+            return;
+        }
+
         if (ownerType == OwnerType.Player)
         {
-            defaultPlayerCheckpointPosition = position;
-            hasDefaultPlayerCheckpoint = true;
+            defaultPlayerCheckpointPositions[checkpointIndex] = position;
+            hasDefaultPlayerCheckpoints[checkpointIndex] = true;
         }
         else
         {
-            defaultMonsterCheckpointPosition = position;
-            hasDefaultMonsterCheckpoint = true;
+            defaultMonsterCheckpointPositions[checkpointIndex] = position;
+            hasDefaultMonsterCheckpoints[checkpointIndex] = true;
         }
+    }
+
+    /// <summary>
+    /// Gets the latest checkpoint index reached by either player or monster.
+    /// </summary>
+    private static int GetLatestCheckpointIndex()
+    {
+        for (int i = 2; i >= 0; i--)
+        {
+            if (playerCheckpoints[i] != null || monsterCheckpoints[i] != null)
+            {
+                Debug.Log("Latest checkpoint index found: " + (i + 1));
+                return i;
+            }
+        }
+        Debug.Log("No checkpoints reached, defaulting to checkpoint 1");
+        return 0; // Default to first checkpoint
     }
 
     public static bool TryTeleportToCheckpoint(GameObject actor, OwnerType ownerType, float clearance)
     {
-        Transform checkpoint = ownerType == OwnerType.Player ? playerCheckpoint : monsterCheckpoint;
-        Vector3 destination;
+        int checkpointIndex = GetLatestCheckpointIndex();
+        Debug.Log($"TryTeleportToCheckpoint called for {actor.name} ({ownerType}) - targeting checkpoint {(checkpointIndex + 1)}");
+        
+        Transform checkpointPlayer = playerCheckpoints[checkpointIndex];
+        Transform checkpointMonster = monsterCheckpoints[checkpointIndex];
 
-        if (checkpoint == null)
+        if (checkpointPlayer == null || checkpointMonster == null)
         {
-            if (ownerType == OwnerType.Player && hasDefaultPlayerCheckpoint)
+            // Try to use default positions if checkpoint is not set
+            Vector3 playerDestination = Vector3.zero;
+            Vector3 monsterDestination = Vector3.zero;
+            bool canTeleport = true;
+
+            if (checkpointPlayer == null)
             {
-                destination = defaultPlayerCheckpointPosition;
-            }
-            else if (ownerType == OwnerType.Monster && hasDefaultMonsterCheckpoint)
-            {
-                destination = defaultMonsterCheckpointPosition;
+                if (hasDefaultPlayerCheckpoints[checkpointIndex])
+                {
+                    playerDestination = defaultPlayerCheckpointPositions[checkpointIndex];
+                }
+                else
+                {
+                    Debug.LogWarning("Player checkpoint " + (checkpointIndex + 1) + " is not set.");
+                    canTeleport = false;
+                }
             }
             else
             {
-                Debug.LogWarning(ownerType + " checkpoint is not set.");
-                return false;
+                playerDestination = checkpointPlayer.position;
             }
 
-            destination.y += clearance;
-            TeleportActor(actor, destination);
-            Debug.Log($"{ownerType} checkpoint not set, using default start position {destination}.");
-            return true;
+            if (checkpointMonster == null)
+            {
+                if (hasDefaultMonsterCheckpoints[checkpointIndex])
+                {
+                    monsterDestination = defaultMonsterCheckpointPositions[checkpointIndex];
+                }
+                else
+                {
+                    Debug.LogWarning("Monster checkpoint " + (checkpointIndex + 1) + " is not set.");
+                    canTeleport = false;
+                }
+            }
+            else
+            {
+                monsterDestination = checkpointMonster.position;
+            }
+
+            if (!canTeleport)
+                return false;
         }
 
-        destination = checkpoint.position;
-        destination.y += clearance;
-        TeleportActor(actor, destination);
-        Debug.Log($"Teleported {actor.name} to {ownerType} checkpoint {checkpoint.name} at {destination}.");
+        // Teleport the actor to the latest checkpoint
+        Transform targetCheckpoint = (ownerType == OwnerType.Player) ? playerCheckpoints[checkpointIndex] : monsterCheckpoints[checkpointIndex];
+        if (targetCheckpoint == null)
+        {
+            Vector3 defaultPos = (ownerType == OwnerType.Player) 
+                ? defaultPlayerCheckpointPositions[checkpointIndex] 
+                : defaultMonsterCheckpointPositions[checkpointIndex];
+            defaultPos.y += clearance;
+            TeleportActor(actor, defaultPos);
+            Debug.Log($"Teleported {actor.name} to default checkpoint {(checkpointIndex + 1)} position: {defaultPos}");
+        }
+        else
+        {
+            Vector3 destination = targetCheckpoint.position;
+            destination.y += clearance;
+            TeleportActor(actor, destination);
+            Debug.Log($"Teleported {actor.name} to checkpoint {(checkpointIndex + 1)} ({targetCheckpoint.name}) at position: {destination}");
+        }
+
+        Debug.Log($"Teleported {actor.name} to checkpoint {(checkpointIndex + 1)} at latest checkpoint.");
         return true;
     }
 

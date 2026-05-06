@@ -12,6 +12,13 @@ public class FlashlightScript : MonoBehaviour
     public float range = 20f; // Maximum range of the raycast
     public LayerMask Enemy; // Layer mask to detect enemies
 
+    [Header("Sound Settings")]
+    [SerializeField] private AudioClip flashlightToggleSound;
+    [SerializeField] private AudioSource audioSource;
+
+    [Header("Flashlight Settings")]
+    [SerializeField] private float flashlightToggleDelay = 1.0f; // Delay in seconds before the flashlight turns on
+
     void Start()
     {
         flashlight = GetComponent<Light>();
@@ -31,12 +38,14 @@ public class FlashlightScript : MonoBehaviour
     {
         if (Input.GetKeyDown(toggleKey) && flashlight != null)
         {
-            flashlight.enabled = !flashlight.enabled;
-            isFlashlightOn = flashlight.enabled;
-
-            if (isFlashlightOn)
+            if (!isFlashlightOn)
             {
-                ReducePlayerStamina(100); // Reduce stamina by 100 when toggled on
+                PlayFlashlightToggleSound();
+                Invoke(nameof(ToggleFlashlight), flashlightToggleDelay); // Delay flashlight toggle by 1 second
+            }
+            else
+            {
+                ToggleFlashlight(); // Turn off immediately
             }
         }
 
@@ -44,6 +53,29 @@ public class FlashlightScript : MonoBehaviour
         {
             DrainStaminaOverTime();
             ConstantRaycast(); // Continuously check for enemies
+        }
+    }
+
+    void ToggleFlashlight()
+    {
+        flashlight.enabled = !flashlight.enabled;
+        isFlashlightOn = flashlight.enabled;
+
+        if (isFlashlightOn)
+        {
+            ReducePlayerStamina(100); // Reduce stamina by 100 when toggled on
+        }
+    }
+
+    void PlayFlashlightToggleSound()
+    {
+        if (audioSource != null && flashlightToggleSound != null)
+        {
+            audioSource.PlayOneShot(flashlightToggleSound);
+        }
+        else
+        {
+            Debug.LogWarning("AudioSource or FlashlightToggleSound is not assigned.");
         }
     }
 

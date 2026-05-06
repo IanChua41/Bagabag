@@ -13,6 +13,7 @@ public class MonsterBehavior : MonoBehaviour
     private bool inSpotlight = false;
 
     private PlayerMovement playerMovement;
+    private Rigidbody rb;
 
     void Start()
     {
@@ -20,6 +21,15 @@ public class MonsterBehavior : MonoBehaviour
         if (playerMovement == null)
         {
             Debug.LogError("PlayerMovement script not found on the player GameObject.");
+        }
+
+        rb = GetComponent<Rigidbody>();
+        if (rb == null)
+        {
+            Debug.LogWarning("Rigidbody not found on monster. Adding one for proper collision detection.");
+            rb = gameObject.AddComponent<Rigidbody>();
+            rb.isKinematic = true;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
         }
     }
 
@@ -50,7 +60,8 @@ public class MonsterBehavior : MonoBehaviour
     {
         if (isRetreating)
         {
-            transform.position = Vector3.MoveTowards(transform.position, retreatTarget, retreatSpeed * Time.deltaTime);
+            Vector3 direction = (retreatTarget - transform.position).normalized;
+            rb.MovePosition(transform.position + direction * retreatSpeed * Time.deltaTime);
 
             if (Vector3.Distance(transform.position, retreatTarget) < 0.1f)
             {
@@ -63,7 +74,19 @@ public class MonsterBehavior : MonoBehaviour
     public void FollowPlayer()
     {
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
-        transform.position += directionToPlayer * followSpeed * Time.deltaTime;
+        rb.MovePosition(transform.position + directionToPlayer * followSpeed * Time.deltaTime);
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Car"))
+        {
+            // Teleport both player/car and monster to the latest checkpoint
+            Checkpoint.TryTeleportToCheckpoint(other.gameObject, Checkpoint.OwnerType.Player, 0.1f);
+            Checkpoint.TryTeleportToCheckpoint(gameObject, Checkpoint.OwnerType.Monster, 0.1f);
+            Debug.Log("Player caught! Teleporting to checkpoint...");
+        }
+
     }
 
 }

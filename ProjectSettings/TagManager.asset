@@ -7,7 +7,7 @@ TagManager:
   - PRespawn
   - MRespawn
   - Monster
-  - Statue
+  - Car
   layers:
   - Default
   - TransparentFX
