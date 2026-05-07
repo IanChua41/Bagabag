@@ -28,19 +28,30 @@ public class MonsterBehavior : MonoBehaviour
         {
             Debug.LogWarning("Rigidbody not found on monster. Adding one for proper collision detection.");
             rb = gameObject.AddComponent<Rigidbody>();
-            rb.isKinematic = true;
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
         }
+
+        rb.useGravity = false;
+        rb.isKinematic = true;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     void Update()
     {
+        FacePlayer();
+
         if ((playerMovement != null && playerMovement.IsInSpotlight()) || inSpotlight)
         {
             if (!isRetreating)
             {
                 StartRetreat();
             }
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if ((playerMovement != null && playerMovement.IsInSpotlight()) || inSpotlight)
+        {
             HandleRetreat();
         }
         else
@@ -51,7 +62,9 @@ public class MonsterBehavior : MonoBehaviour
 
     public void StartRetreat()
     {
-        Vector3 directionAwayFromPlayer = (transform.position - player.position).normalized;
+        Vector3 directionAwayFromPlayer = transform.position - player.position;
+        directionAwayFromPlayer.y = 0f;
+        directionAwayFromPlayer = directionAwayFromPlayer.normalized;
         retreatTarget = transform.position + directionAwayFromPlayer * retreatDistance;
         isRetreating = true;
     }
@@ -61,7 +74,7 @@ public class MonsterBehavior : MonoBehaviour
         if (isRetreating)
         {
             Vector3 direction = (retreatTarget - transform.position).normalized;
-            rb.MovePosition(transform.position + direction * retreatSpeed * Time.deltaTime);
+            rb.MovePosition(transform.position + direction * retreatSpeed * Time.fixedDeltaTime);
 
             if (Vector3.Distance(transform.position, retreatTarget) < 0.1f)
             {
@@ -73,8 +86,29 @@ public class MonsterBehavior : MonoBehaviour
 
     public void FollowPlayer()
     {
-        Vector3 directionToPlayer = (player.position - transform.position).normalized;
-        rb.MovePosition(transform.position + directionToPlayer * followSpeed * Time.deltaTime);
+        Vector3 directionToPlayer = player.position - transform.position;
+        directionToPlayer.y = 0f;
+
+        if (directionToPlayer.sqrMagnitude > 0.0001f)
+        {
+            rb.MovePosition(transform.position + directionToPlayer.normalized * followSpeed * Time.fixedDeltaTime);
+        }
+    }
+
+    private void FacePlayer()
+    {
+        if (player == null)
+        {
+            return;
+        }
+
+        Vector3 directionToPlayer = player.position - transform.position;
+        directionToPlayer.y = 0f;
+
+        if (directionToPlayer.sqrMagnitude > 0.0001f)
+        {
+            transform.rotation = Quaternion.LookRotation(directionToPlayer.normalized);
+        }
     }
 
     private void OnCollisionEnter(Collision other)

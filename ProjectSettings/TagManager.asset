@@ -8,6 +8,7 @@ TagManager:
   - MRespawn
   - Monster
   - Car
+  - Furniture
   layers:
   - Default
   - TransparentFX

@@ -101,7 +101,7 @@ public class Checkpoint : MonoBehaviour
     {
         int checkpointIndex = GetLatestCheckpointIndex();
         Debug.Log($"TryTeleportToCheckpoint called for {actor.name} ({ownerType}) - targeting checkpoint {(checkpointIndex + 1)}");
-        
+
         Transform checkpointPlayer = playerCheckpoints[checkpointIndex];
         Transform checkpointMonster = monsterCheckpoints[checkpointIndex];
 
@@ -154,8 +154,8 @@ public class Checkpoint : MonoBehaviour
         Transform targetCheckpoint = (ownerType == OwnerType.Player) ? playerCheckpoints[checkpointIndex] : monsterCheckpoints[checkpointIndex];
         if (targetCheckpoint == null)
         {
-            Vector3 defaultPos = (ownerType == OwnerType.Player) 
-                ? defaultPlayerCheckpointPositions[checkpointIndex] 
+            Vector3 defaultPos = (ownerType == OwnerType.Player)
+                ? defaultPlayerCheckpointPositions[checkpointIndex]
                 : defaultMonsterCheckpointPositions[checkpointIndex];
             defaultPos.y += clearance;
             TeleportActor(actor, defaultPos);
