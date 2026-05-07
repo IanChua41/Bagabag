@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0.0048059775, g: 0.05193707, b: 0.11320752, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.024
@@ -5459,7 +5459,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &814397025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8010,7 +8010,7 @@ PrefabInstance:
     - target: {fileID: 8643064444399380094, guid: f1226f46f6dd21b49ba5022bbb48b5de, type: 3}
       propertyPath: rearviewMirror
       value: 
-      objectReference: {fileID: 859998975}
+      objectReference: {fileID: 1529622608}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8212,7 +8212,7 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 0.1
+  m_Intensity: 4.95
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
