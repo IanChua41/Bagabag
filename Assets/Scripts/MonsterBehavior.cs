@@ -13,7 +13,6 @@ public class MonsterBehavior : MonoBehaviour
     private bool inSpotlight = false;
 
     private PlayerMovement playerMovement;
-    private Rigidbody rb;
 
     void Start()
     {
@@ -22,36 +21,17 @@ public class MonsterBehavior : MonoBehaviour
         {
             Debug.LogError("PlayerMovement script not found on the player GameObject.");
         }
-
-        rb = GetComponent<Rigidbody>();
-        if (rb == null)
-        {
-            Debug.LogWarning("Rigidbody not found on monster. Adding one for proper collision detection.");
-            rb = gameObject.AddComponent<Rigidbody>();
-        }
-
-        rb.useGravity = false;
-        rb.isKinematic = true;
-        rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     void Update()
     {
         FacePlayer();
-
         if ((playerMovement != null && playerMovement.IsInSpotlight()) || inSpotlight)
         {
             if (!isRetreating)
             {
                 StartRetreat();
             }
-        }
-    }
-
-    void FixedUpdate()
-    {
-        if ((playerMovement != null && playerMovement.IsInSpotlight()) || inSpotlight)
-        {
             HandleRetreat();
         }
         else
@@ -62,9 +42,7 @@ public class MonsterBehavior : MonoBehaviour
 
     public void StartRetreat()
     {
-        Vector3 directionAwayFromPlayer = transform.position - player.position;
-        directionAwayFromPlayer.y = 0f;
-        directionAwayFromPlayer = directionAwayFromPlayer.normalized;
+        Vector3 directionAwayFromPlayer = (transform.position - player.position).normalized;
         retreatTarget = transform.position + directionAwayFromPlayer * retreatDistance;
         isRetreating = true;
     }
@@ -73,8 +51,7 @@ public class MonsterBehavior : MonoBehaviour
     {
         if (isRetreating)
         {
-            Vector3 direction = (retreatTarget - transform.position).normalized;
-            rb.MovePosition(transform.position + direction * retreatSpeed * Time.fixedDeltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, retreatTarget, retreatSpeed * Time.deltaTime);
 
             if (Vector3.Distance(transform.position, retreatTarget) < 0.1f)
             {
@@ -86,16 +63,10 @@ public class MonsterBehavior : MonoBehaviour
 
     public void FollowPlayer()
     {
-        Vector3 directionToPlayer = player.position - transform.position;
-        directionToPlayer.y = 0f;
-
-        if (directionToPlayer.sqrMagnitude > 0.0001f)
-        {
-            rb.MovePosition(transform.position + directionToPlayer.normalized * followSpeed * Time.fixedDeltaTime);
-        }
+        Vector3 directionToPlayer = (player.position - transform.position).normalized;
+        transform.position += directionToPlayer * followSpeed * Time.deltaTime;
     }
-
-    private void FacePlayer()
+   private void FacePlayer()
     {
         if (player == null)
         {
