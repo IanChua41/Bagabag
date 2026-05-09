@@ -32,7 +32,8 @@ public class Gun : MonoBehaviour
         if (collision.CompareTag("Player") && !hasTriggered)
         {
             hasTriggered = true;
-            gunCollectibleManager.CollectGun(value);
+            Debug.Log("Collected");
+            //gunCollectibleManager.CollectGun(value);
             //Destroy(gameObject);
             CollectGun();
         }   
