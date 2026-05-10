@@ -61,6 +61,6 @@ public class CutsceneTrigger : MonoBehaviour
 
         // Load Level2
         Debug.Log("Loading Level2...");
-        SceneManager.LoadScene("Level2");
+        SceneManager.LoadScene(4);
     }
 }
