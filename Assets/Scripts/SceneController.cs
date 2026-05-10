@@ -56,6 +56,8 @@ public class SceneController : MonoBehaviour
     }
     public void Credits()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         SceneManager.LoadSceneAsync(5);
     }
 

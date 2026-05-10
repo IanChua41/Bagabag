@@ -319,7 +319,15 @@ public class EndingMonster : MonoBehaviour
         }
 
         SetCutsceneCanvasVisible(false);
-        QuitGame();
+
+        if (SceneController.instance != null)
+        {
+            SceneController.instance.Credits();
+        }
+        else
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Credits");
+        }
     }
 
     private void SetCutsceneCanvasVisible(bool isVisible)
