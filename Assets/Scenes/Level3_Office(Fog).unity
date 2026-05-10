@@ -4204,6 +4204,14 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: -0.82
       objectReference: {fileID: 0}
+    - target: {fileID: 7401795545096774010, guid: 07855b6d05c1e4e4a8ef2cf4c836dc19, type: 3}
+      propertyPath: m_Height
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401795545096774010, guid: 07855b6d05c1e4e4a8ef2cf4c836dc19, type: 3}
+      propertyPath: m_Center.y
+      value: -0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 8204967012089990268, guid: 07855b6d05c1e4e4a8ef2cf4c836dc19, type: 3}
       propertyPath: m_LocalScale.y
       value: 1
@@ -15487,6 +15495,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4486387472550006957, guid: 9aee93f212df3a24f81c78f123fbef05, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.44097257
+      objectReference: {fileID: 0}
+    - target: {fileID: 4486387472550006957, guid: 9aee93f212df3a24f81c78f123fbef05, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.80000305
+      objectReference: {fileID: 0}
     - target: {fileID: 4533236392260504337, guid: 9aee93f212df3a24f81c78f123fbef05, type: 3}
       propertyPath: m_Name
       value: Teleport Prefab
@@ -15501,7 +15517,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4932460301228570118, guid: 9aee93f212df3a24f81c78f123fbef05, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.80000305
+      value: -0.3999977
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -24977,7 +24993,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2511888155357311764, guid: 9aee93f212df3a24f81c78f123fbef05, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 35.4
+      value: 35.100002
       objectReference: {fileID: 0}
     - target: {fileID: 2511888155357311764, guid: 9aee93f212df3a24f81c78f123fbef05, type: 3}
       propertyPath: m_LocalRotation.w
@@ -25007,13 +25023,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4486387472550006957, guid: 9aee93f212df3a24f81c78f123fbef05, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.39999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 4486387472550006957, guid: 9aee93f212df3a24f81c78f123fbef05, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.4699993
+      objectReference: {fileID: 0}
+    - target: {fileID: 4486387472550006957, guid: 9aee93f212df3a24f81c78f123fbef05, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.8999977
+      objectReference: {fileID: 0}
     - target: {fileID: 4533236392260504337, guid: 9aee93f212df3a24f81c78f123fbef05, type: 3}
       propertyPath: m_Name
       value: Teleport Prefab (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4932460301228570118, guid: 9aee93f212df3a24f81c78f123fbef05, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.64097255
+      value: 0.29999998
       objectReference: {fileID: 0}
     - target: {fileID: 4932460301228570118, guid: 9aee93f212df3a24f81c78f123fbef05, type: 3}
       propertyPath: m_LocalPosition.y
@@ -25021,7 +25049,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4932460301228570118, guid: 9aee93f212df3a24f81c78f123fbef05, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.80000305
+      value: -0.29999924
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
