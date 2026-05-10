@@ -34,6 +34,12 @@ public class TriggerCutscene : MonoBehaviour
             return;
         }
 
+        if (CutsceneManager.instance != null && CutsceneManager.instance.IsPlaying)
+        {
+            // another cutscene is playing
+            return;
+        }
+
         if (!other.CompareTag(triggerTag))
         {
             return;
@@ -44,7 +50,16 @@ public class TriggerCutscene : MonoBehaviour
             return;
         }
 
-        StartCoroutine(PlayCutscene());
+        if (CutsceneManager.instance != null)
+        {
+            bool accepted = CutsceneManager.instance.TryPlayCutscene(PlayCutscene());
+            if (!accepted)
+                return;
+        }
+        else
+        {
+            StartCoroutine(PlayCutscene());
+        }
     }
 
     private IEnumerator PlayCutscene()
