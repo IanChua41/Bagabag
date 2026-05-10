@@ -2761,6 +2761,12 @@ MonoBehaviour:
   sprintSpeed: 8
   jumpHeight: 2
   gravity: -9.81
+  maxStamina: 1000
+  startingStamina: 100
+  staminaDepletionRate: 50
+  staminaRecoveryRateWalking: 25
+  staminaRecoveryRateIdle: 50
+  staminaBar: {fileID: 0}
   orientation: {fileID: 2096409110}
 --- !u!114 &1682897345
 MonoBehaviour:
@@ -2941,7 +2947,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71db10ba573c1464a9627107caa2e6e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstPerson: 0
   firstPersonCam: {fileID: 186563810}
   thirdPersonCam: {fileID: 223094301}
 --- !u!1 &1748158886
