@@ -34,6 +34,6 @@ public class Totem : MonoBehaviour, IInteractable
 
         // Load Level2
         Debug.Log("Level finished.");
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(6);
     }
 }

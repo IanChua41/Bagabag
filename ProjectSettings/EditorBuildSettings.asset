@@ -24,8 +24,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Level2.unity
     guid: 40e4fe5fd81cd5f428a6ea67b40cd8da
   - enabled: 1
-    path: Assets/Scenes/Level3.unity
-    guid: f23dae9822b28b6498f0ec8a66469961
+    path: Assets/Scenes/Level3_Office(Fog).unity
+    guid: c03aac6af9dfae84f8e60a8b5a2477e3
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 74bd84a24e5046e429d8dedefe3e8e5c
