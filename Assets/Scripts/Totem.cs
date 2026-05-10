@@ -15,15 +15,6 @@ public class Totem : MonoBehaviour, IInteractable
         StartCoroutine(PlayCutscene());
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            Debug.Log("X key pressed, triggering cutscene...");
-            StartCoroutine(PlayCutscene());
-        }
-    }
-
     private IEnumerator PlayCutscene()
     {
         // Play video
