@@ -38,7 +38,7 @@ public class CutsceneTrigger : MonoBehaviour
             Debug.Log("Playing audio: " + audioClip.name);
             Vector3 playPosition = Camera.main != null ? Camera.main.transform.position : transform.position;
             AudioSource.PlayClipAtPoint(audioClip, playPosition, audioVolume);
-            
+
             // Wait for audio to finish
             yield return new WaitForSeconds(audioClip.length);
             Debug.Log("Audio finished");
@@ -50,7 +50,7 @@ public class CutsceneTrigger : MonoBehaviour
             Debug.Log("Playing video: " + videoClip.name);
             videoPlayer.clip = videoClip;
             videoPlayer.Play();
-            
+
             // Wait for video to finish
             while (videoPlayer.isPlaying)
             {

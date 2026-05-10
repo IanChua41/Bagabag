@@ -8,14 +8,20 @@ public class MonsterBehavior : MonoBehaviour
     public float retreatDistance = 5f;
     public float retreatSpeed = 5f;
 
+    [Header("Health")]
+    [SerializeField] private int maxHealth = 3;
+
     private Vector3 retreatTarget;
     private bool isRetreating = false;
     private bool inSpotlight = false;
+    private int currentHealth;
 
     private PlayerMovement playerMovement;
 
     void Start()
     {
+        currentHealth = maxHealth;
+
         playerMovement = player.GetComponent<PlayerMovement>();
         if (playerMovement == null)
         {
@@ -66,7 +72,23 @@ public class MonsterBehavior : MonoBehaviour
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
         transform.position += directionToPlayer * followSpeed * Time.deltaTime;
     }
-   private void FacePlayer()
+
+    public void TakeDamage(int damage = 1)
+    {
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
+    }
+
+    private void FacePlayer()
     {
         if (player == null)
         {
