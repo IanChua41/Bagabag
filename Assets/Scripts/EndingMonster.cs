@@ -22,6 +22,8 @@ public class EndingMonster : MonoBehaviour
     [SerializeField] private AudioClip spottedPlayerClip;
     [SerializeField, Range(0f, 1f)] private float spottedPlayerVolume = 1f;
     [SerializeField] private float spottedSoundCooldown = 2f;
+    [SerializeField] private bool force2DSightAudio = true;
+    [SerializeField] private bool debugSightAudio = false;
 
     [Header("Cutscene")]
     [SerializeField] private VideoPlayer cutscenePlayer;
@@ -36,6 +38,11 @@ public class EndingMonster : MonoBehaviour
 
     private void Start()
     {
+        if (sightAudioSource != null)
+        {
+            sightAudioSource.playOnAwake = false;
+        }
+
         FindPlayerIfNeeded();
     }
 
@@ -178,6 +185,10 @@ public class EndingMonster : MonoBehaviour
 
         if (spottedPlayerClip == null)
         {
+            if (debugSightAudio)
+            {
+                Debug.LogWarning("EndingMonster: Spotted Player Clip is not assigned.");
+            }
             hadLineOfSightLastFrame = true;
             return;
         }
@@ -188,17 +199,64 @@ public class EndingMonster : MonoBehaviour
             return;
         }
 
-        if (sightAudioSource != null)
-        {
-            sightAudioSource.PlayOneShot(spottedPlayerClip, spottedPlayerVolume);
-        }
-        else
-        {
-            AudioSource.PlayClipAtPoint(spottedPlayerClip, transform.position, spottedPlayerVolume);
-        }
+        PlaySpottedSound();
 
         lastSpottedSoundTime = Time.time;
         hadLineOfSightLastFrame = true;
+    }
+
+    private void PlaySpottedSound()
+    {
+        if (spottedPlayerClip == null)
+        {
+            return;
+        }
+
+        if (sightAudioSource != null)
+        {
+            if (!sightAudioSource.enabled)
+            {
+                sightAudioSource.enabled = true;
+            }
+
+            if (force2DSightAudio)
+            {
+                sightAudioSource.spatialBlend = 0f;
+            }
+
+            sightAudioSource.PlayOneShot(spottedPlayerClip, spottedPlayerVolume);
+
+            if (debugSightAudio)
+            {
+                Debug.Log("EndingMonster: Played spotted sound via assigned AudioSource.");
+            }
+            return;
+        }
+
+        if (force2DSightAudio)
+        {
+            GameObject tempAudioObject = new GameObject("EndingMonsterSightAudio");
+            Vector3 audioPosition = Camera.main != null ? Camera.main.transform.position : transform.position;
+            tempAudioObject.transform.position = audioPosition;
+
+            AudioSource tempAudioSource = tempAudioObject.AddComponent<AudioSource>();
+            tempAudioSource.spatialBlend = 0f;
+            tempAudioSource.PlayOneShot(spottedPlayerClip, spottedPlayerVolume);
+            Destroy(tempAudioObject, spottedPlayerClip.length + 0.2f);
+
+            if (debugSightAudio)
+            {
+                Debug.Log("EndingMonster: Played spotted sound via temporary 2D AudioSource.");
+            }
+            return;
+        }
+
+        AudioSource.PlayClipAtPoint(spottedPlayerClip, transform.position, spottedPlayerVolume);
+
+        if (debugSightAudio)
+        {
+            Debug.Log("EndingMonster: Played spotted sound via PlayClipAtPoint.");
+        }
     }
 
     private bool HasLineOfSightToPlayer()
