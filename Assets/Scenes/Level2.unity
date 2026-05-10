@@ -4532,6 +4532,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   videoClip: {fileID: 32900000, guid: 9c4820aacab583841a367c4257d06af6, type: 3}
   videoPlayer: {fileID: 234949241}
+  videoCanvas: {fileID: 1444210611}
 --- !u!136 &234949240
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -26388,7 +26389,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1444210609
 MonoBehaviour:
   m_ObjectHideFlags: 0

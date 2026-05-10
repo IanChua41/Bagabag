@@ -8,6 +8,16 @@ public class Totem : MonoBehaviour, IInteractable
     [Header("Video Settings")]
     [SerializeField] private VideoClip videoClip;
     [SerializeField] private VideoPlayer videoPlayer;
+    [SerializeField] private Canvas videoCanvas;
+
+    private void Start()
+    {
+        // Deactivate the canvas initially
+        if (videoCanvas != null)
+        {
+            videoCanvas.gameObject.SetActive(false);
+        }
+    }
 
     public void Interact()
     {
@@ -17,6 +27,12 @@ public class Totem : MonoBehaviour, IInteractable
 
     private IEnumerator PlayCutscene()
     {
+        // Activate the canvas
+        if (videoCanvas != null)
+        {
+            videoCanvas.gameObject.SetActive(true);
+        }
+
         // Play video
         if (videoPlayer != null && videoClip != null)
         {
@@ -30,6 +46,12 @@ public class Totem : MonoBehaviour, IInteractable
                 yield return null;
             }
             Debug.Log("Video finished");
+        }
+
+        // Deactivate the canvas
+        if (videoCanvas != null)
+        {
+            videoCanvas.gameObject.SetActive(false);
         }
 
         // Load Level2
