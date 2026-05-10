@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.058823533, g: 0.098039225, b: 0.15686275, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.05
@@ -5680,7 +5680,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statue: {fileID: 388847236}
-  baseLight: {fileID: 416009529}
+  message: {fileID: 0}
   isFixed: 0
 --- !u!1001 &302934339
 PrefabInstance:
@@ -12084,7 +12084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statue: {fileID: 1252488922}
-  baseLight: {fileID: 2026540650}
+  message: {fileID: 0}
   isFixed: 0
 --- !u!1001 &677989420
 PrefabInstance:
@@ -37762,7 +37762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statue: {fileID: 305948222}
-  baseLight: {fileID: 1224149165}
+  message: {fileID: 0}
   isFixed: 1
 --- !u!1001 &2074285956
 PrefabInstance:
@@ -38324,7 +38324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statue: {fileID: 882618936}
-  baseLight: {fileID: 910565333}
+  message: {fileID: 0}
   isFixed: 0
 --- !u!1001 &2117009374
 PrefabInstance:
