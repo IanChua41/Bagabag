@@ -17,6 +17,9 @@ public class TriggerCutscene : MonoBehaviour
     [SerializeField] private VideoPlayer videoPlayer;
     [SerializeField] private VideoClip videoClip;
 
+    [Header("UI Control")]
+    [SerializeField] private Canvas videoCanvas;
+
     [Header("After Cutscene")]
     [SerializeField] private bool loadNextScene = true;
     [SerializeField] private string sceneToLoad;
@@ -49,6 +52,11 @@ public class TriggerCutscene : MonoBehaviour
         isPlaying = true;
         hasTriggered = true;
 
+        if (videoCanvas != null)
+        {
+            videoCanvas.gameObject.SetActive(true);
+        }
+
         onCutsceneTriggered?.Invoke();
 
         if (audioClip != null)
@@ -67,6 +75,11 @@ public class TriggerCutscene : MonoBehaviour
             {
                 yield return null;
             }
+        }
+
+        if (videoCanvas != null)
+        {
+            videoCanvas.gameObject.SetActive(false);
         }
 
         if (loadNextScene)

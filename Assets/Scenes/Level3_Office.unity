@@ -5494,6 +5494,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 298263503}
+  - component: {fileID: 298263504}
   m_Layer: 0
   m_Name: VideoPlayer
   m_TagString: Untagged
@@ -5509,13 +5510,47 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 298263502}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.40000004, y: 16.300001, z: -20.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1636040637}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!328 &298263504
+VideoPlayer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298263502}
+  m_Enabled: 1
+  m_VideoClip: {fileID: 32900000, guid: da7aa75863a761246b67d3112c9e70c9, type: 3}
+  m_TargetCameraAlpha: 1
+  m_TargetCamera3DLayout: 0
+  m_TargetCamera: {fileID: 0}
+  m_TargetTexture: {fileID: 8400000, guid: 9a9429347902ec349b90d5bfb47739fa, type: 2}
+  m_TimeReference: 0
+  m_TargetMaterialRenderer: {fileID: 0}
+  m_TargetMaterialProperty: <noninit>
+  m_RenderMode: 2
+  m_AspectRatio: 2
+  m_DataSource: 0
+  m_TimeUpdateMode: 2
+  m_PlaybackSpeed: 1
+  m_AudioOutputMode: 2
+  m_TargetAudioSources: []
+  m_DirectAudioVolumes: []
+  m_Url: 
+  m_EnabledAudioTracks: 
+  m_DirectAudioMutes: 
+  m_ControlledAudioTrackCount: 0
+  m_PlayOnAwake: 1
+  m_SkipOnDrop: 1
+  m_Looping: 0
+  m_WaitForFirstFrame: 1
+  m_FrameReadyEventEnabled: 0
+  m_VideoShaders: []
 --- !u!1001 &300000736
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21130,7 +21165,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1014178134
 MonoBehaviour:
@@ -21152,7 +21187,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 8400000, guid: 9a9429347902ec349b90d5bfb47739fa, type: 2}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -25995,7 +26030,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1285182787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27989,19 +28024,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 401114962038238001, guid: c8aa3af8e883c6e4dbaf78236b90a9d2, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.6833376
       objectReference: {fileID: 0}
     - target: {fileID: 401114962038238001, guid: c8aa3af8e883c6e4dbaf78236b90a9d2, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 401114962038238001, guid: c8aa3af8e883c6e4dbaf78236b90a9d2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.73010254
       objectReference: {fileID: 0}
     - target: {fileID: 401114962038238001, guid: c8aa3af8e883c6e4dbaf78236b90a9d2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 401114962038238001, guid: c8aa3af8e883c6e4dbaf78236b90a9d2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -28009,7 +28044,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 401114962038238001, guid: c8aa3af8e883c6e4dbaf78236b90a9d2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -93.79
       objectReference: {fileID: 0}
     - target: {fileID: 401114962038238001, guid: c8aa3af8e883c6e4dbaf78236b90a9d2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -28326,8 +28361,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1407370800}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.30000007, y: 15.74, z: -23.1}
+  m_LocalRotation: {x: 0.25340134, y: -0.0000000072062254, z: 0.0000000018876787, w: 0.9673613}
+  m_LocalPosition: {x: 0.30000007, y: 17.25, z: -27.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -28759,8 +28794,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1420921500}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.30000007, y: 15.74, z: -23.1}
+  m_LocalRotation: {x: 0.25340134, y: -0.0000000072062254, z: 0.0000000018876787, w: 0.9673613}
+  m_LocalPosition: {x: 0.30000007, y: 17.25, z: -27.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -33863,9 +33898,10 @@ MonoBehaviour:
       m_Calls: []
   audioClip: {fileID: 0}
   audioVolume: 1
-  videoPlayer: {fileID: 0}
-  videoClip: {fileID: 0}
-  loadNextScene: 1
+  videoPlayer: {fileID: 298263504}
+  videoClip: {fileID: 32900000, guid: da7aa75863a761246b67d3112c9e70c9, type: 3}
+  videoCanvas: {fileID: 1285182789}
+  loadNextScene: 0
   sceneToLoad: 
 --- !u!65 &1636040634
 BoxCollider:
@@ -33953,8 +33989,7 @@ Transform:
   m_LocalPosition: {x: 0.40000004, y: 16.300001, z: -20.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 298263503}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1637929376
@@ -34818,7 +34853,7 @@ GameObject:
   - component: {fileID: 1682897347}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45125,6 +45160,7 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1528132645}
   - {fileID: 223094302}
   - {fileID: 186563811}
   - {fileID: 2021375685}
@@ -45141,4 +45177,4 @@ SceneRoots:
   - {fileID: 2099769797}
   - {fileID: 1636040637}
   - {fileID: 1285182790}
-  - {fileID: 1528132645}
+  - {fileID: 298263503}
