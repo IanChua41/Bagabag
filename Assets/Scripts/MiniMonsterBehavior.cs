@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MonsterBehavior : MonoBehaviour
+public class MiniMonsterBehavior : MonoBehaviour
 {
     [Header("Monster Settings")]
     public Transform player;
@@ -11,9 +11,14 @@ public class MonsterBehavior : MonoBehaviour
     [Header("Health")]
     [SerializeField] private int maxHealth = 3;
 
+    [Header("Trigger Settings")]
+    [SerializeField] private string triggerTag = "Player";
+    [SerializeField] private bool stopFollowingOnTriggerExit = true;
+
     private Vector3 retreatTarget;
     private bool isRetreating = false;
     private bool inSpotlight = false;
+    private bool isPlayerInTrigger = false;
     private int currentHealth;
 
     private PlayerMovement playerMovement;
@@ -22,7 +27,11 @@ public class MonsterBehavior : MonoBehaviour
     {
         currentHealth = maxHealth;
 
-        playerMovement = player.GetComponent<PlayerMovement>();
+        if (player != null)
+        {
+            playerMovement = player.GetComponent<PlayerMovement>();
+        }
+
         if (playerMovement == null)
         {
             Debug.LogError("PlayerMovement script not found on the player GameObject.");
@@ -31,7 +40,13 @@ public class MonsterBehavior : MonoBehaviour
 
     void Update()
     {
+        if (player == null)
+        {
+            return;
+        }
+
         FacePlayer();
+
         if ((playerMovement != null && playerMovement.IsInSpotlight()) || inSpotlight)
         {
             if (!isRetreating)
@@ -39,8 +54,10 @@ public class MonsterBehavior : MonoBehaviour
                 StartRetreat();
             }
             HandleRetreat();
+            return;
         }
-        else
+
+        if (isPlayerInTrigger)
         {
             FollowPlayer();
         }
@@ -104,6 +121,22 @@ public class MonsterBehavior : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(triggerTag))
+        {
+            isPlayerInTrigger = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag(triggerTag) && stopFollowingOnTriggerExit)
+        {
+            isPlayerInTrigger = false;
+        }
+    }
+
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Car"))
@@ -113,7 +146,5 @@ public class MonsterBehavior : MonoBehaviour
             Checkpoint.TryTeleportToCheckpoint(gameObject, Checkpoint.OwnerType.Monster, 0.1f);
             Debug.Log("Player caught! Teleporting to checkpoint...");
         }
-
     }
-
 }
