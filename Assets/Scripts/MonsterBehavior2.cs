@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MonsterBehavior2 : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class MonsterBehavior2 : MonoBehaviour
     public float retreatDistance = 5f;
     public float retreatSpeed = 5f;
 
+    private NavMeshAgent agent;
     private Vector3 retreatTarget;
     private bool isRetreating = false;
     private bool inSpotlight = false;
@@ -23,21 +25,23 @@ public class MonsterBehavior2 : MonoBehaviour
             Debug.LogError("PlayerMovement script not found on the player GameObject.");
         }
 
-        rb = GetComponent<Rigidbody>();
-        if (rb == null)
-        {
-            Debug.LogWarning("Rigidbody not found on monster. Adding one for proper collision detection.");
-            rb = gameObject.AddComponent<Rigidbody>();
-        }
+        //rb = GetComponent<Rigidbody>();
+        //if (rb == null)
+        //{
+        //    Debug.LogWarning("Rigidbody not found on monster. Adding one for proper collision detection.");
+        //    rb = gameObject.AddComponent<Rigidbody>();
+        //}
 
-        rb.useGravity = false;
-        rb.isKinematic = true;
-        rb.constraints = RigidbodyConstraints.FreezeRotation;
+        agent = GetComponent<NavMeshAgent>();
+
+        //rb.useGravity = false;
+        //rb.isKinematic = true;
+        //rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     void Update()
     {
-        FacePlayer();
+        //FacePlayer();
 
         if ((playerMovement != null && playerMovement.IsInSpotlight()) || inSpotlight)
         {
@@ -45,13 +49,7 @@ public class MonsterBehavior2 : MonoBehaviour
             {
                 StartRetreat();
             }
-        }
-    }
-
-    void FixedUpdate()
-    {
-        if ((playerMovement != null && playerMovement.IsInSpotlight()) || inSpotlight)
-        {
+            
             HandleRetreat();
         }
         else
@@ -86,30 +84,32 @@ public class MonsterBehavior2 : MonoBehaviour
 
     public void FollowPlayer()
     {
-        Vector3 directionToPlayer = player.position - transform.position;
-        directionToPlayer.y = 0f;
+        agent.destination = player.position;
 
-        if (directionToPlayer.sqrMagnitude > 0.0001f)
-        {
-            rb.MovePosition(transform.position + directionToPlayer.normalized * followSpeed * Time.fixedDeltaTime);
-        }
+        //Vector3 directionToPlayer = player.position - transform.position;
+        //directionToPlayer.y = 0f;
+
+        //if (directionToPlayer.sqrMagnitude > 0.0001f)
+        //{
+        //    rb.MovePosition(transform.position + directionToPlayer.normalized * followSpeed * Time.fixedDeltaTime);
+        //}
     }
 
-    private void FacePlayer()
-    {
-        if (player == null)
-        {
-            return;
-        }
+    //private void FacePlayer()
+    //{
+    //    if (player == null)
+    //    {
+    //        return;
+    //    }
 
-        Vector3 directionToPlayer = player.position - transform.position;
-        directionToPlayer.y = 0f;
+    //    Vector3 directionToPlayer = player.position - transform.position;
+    //    directionToPlayer.y = 0f;
 
-        if (directionToPlayer.sqrMagnitude > 0.0001f)
-        {
-            transform.rotation = Quaternion.LookRotation(directionToPlayer.normalized);
-        }
-    }
+    //    if (directionToPlayer.sqrMagnitude > 0.0001f)
+    //    {
+    //        transform.rotation = Quaternion.LookRotation(directionToPlayer.normalized);
+    //    }
+    //}
 
     private void OnCollisionEnter(Collision other)
     {

@@ -1,9 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Statue : MonoBehaviour, IInteractable
 {
     [SerializeField] GameObject statue;
-    [SerializeField] GameObject baseLight;
+    [SerializeField] TextMeshProUGUI message;
     [SerializeField] bool isFixed = false;
 
     private void Awake()
@@ -25,7 +28,15 @@ public class Statue : MonoBehaviour, IInteractable
         }
         else
         {
+            StartCoroutine(DisplayMessage());
             Debug.Log("Follow the statue.");
         }
+    }
+
+    IEnumerator DisplayMessage()
+    {
+        message.text = "Follow the statue.";
+        yield return new WaitForSeconds(3);
+        message.text = "";
     }
 }

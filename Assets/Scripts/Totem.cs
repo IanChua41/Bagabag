@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Totem : MonoBehaviour, IInteractable
 {
     public void Interact()
     {
-        // action here
-
         Debug.Log("Level finished.");
+
+        SceneManager.LoadScene("Level3");
     }
 }
