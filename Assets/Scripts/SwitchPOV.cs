@@ -12,9 +12,9 @@ public class SwitchPOV : MonoBehaviour
 
     private void Start()
     {
-        // third person by default on start
-        firstPersonCam.SetActive(false);
-        thirdPersonCam.SetActive(true);
+        // first person by default on start
+        firstPersonCam.SetActive(true);
+        thirdPersonCam.SetActive(false);
         //cinematicCam.SetActive(false);
 
         thirdPerson = true;
