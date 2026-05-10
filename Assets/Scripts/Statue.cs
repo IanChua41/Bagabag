@@ -3,6 +3,7 @@ using UnityEngine;
 public class Statue : MonoBehaviour, IInteractable
 {
     [SerializeField] GameObject statue;
+    [SerializeField] GameObject baseLight;
     [SerializeField] bool isFixed = false;
 
     private void Awake()
@@ -15,6 +16,7 @@ public class Statue : MonoBehaviour, IInteractable
         if (!isFixed)
         {
             statue.SetActive(true);
+            // baseLight.SetActive(false);
 
             Debug.Log("Statue fixed.");
             isFixed = true;
@@ -23,7 +25,7 @@ public class Statue : MonoBehaviour, IInteractable
         }
         else
         {
-            Debug.Log("Statue is already fixed.");
+            Debug.Log("Follow the statue.");
         }
     }
 }
