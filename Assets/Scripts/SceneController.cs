@@ -56,7 +56,7 @@ public class SceneController : MonoBehaviour
     }
     public void Credits()
     {
-        SceneManager.LoadSceneAsync(5);
+        SceneManager.LoadSceneAsync(7);
     }
 
     public void LoadScene(string sceneName)

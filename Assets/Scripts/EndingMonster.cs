@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 
 public class EndingMonster : MonoBehaviour
@@ -319,7 +320,8 @@ public class EndingMonster : MonoBehaviour
         }
 
         SetCutsceneCanvasVisible(false);
-        QuitGame();
+
+        SceneManager.LoadSceneAsync(7);
     }
 
     private void SetCutsceneCanvasVisible(bool isVisible)

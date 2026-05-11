@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 0.37
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: bc881e242b313714e968038a20fef9ee, type: 2}
   m_HaloStrength: 0.5
@@ -19880,6 +19880,8 @@ MonoBehaviour:
   spottedPlayerClip: {fileID: 8300000, guid: 929cc20d1b9e26440be6644c36f7825f, type: 3}
   spottedPlayerVolume: 1
   spottedSoundCooldown: 1
+  force2DSightAudio: 1
+  debugSightAudio: 0
   cutscenePlayer: {fileID: 1538362567}
   cutsceneClip: {fileID: 32900000, guid: 3abc24c35f85d814cbe1e392af3c85aa, type: 3}
   cutsceneCanvas: {fileID: 1066920462}
